@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/create', [BusController::class, 'create']);
+Route::show('/show/{id}', [BusController::class, 'show']);

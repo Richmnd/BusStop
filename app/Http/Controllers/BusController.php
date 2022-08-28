@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Bus;
+use App\Classes\Bus as BusC;
 use App\Models\Bus;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class BusController extends Controller
      */
     public function create(Request $request)
     {
-        Bus::create();
+        BusC::create(['plate' => 'MS-9645', 'model' => 'Volvo', 'type' => 'Bus']);
     }
 
     /**
@@ -45,9 +45,11 @@ class BusController extends Controller
      * @param  \App\Models\Bus  $bus
      * @return \Illuminate\Http\Response
      */
-    public function show(Bus $bus)
+    public function show(Request $request)
     {
-        //
+        $bus = BusC::show(1);
+
+        dd($bus);
     }
 
     /**
