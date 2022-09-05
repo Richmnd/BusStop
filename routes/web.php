@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BusController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/create', [BusController::class, 'create']);
-Route::show('/show/{id}', [BusController::class, 'show']);
+Route::get('/show/{id}', [BusController::class, 'show']);
+
+Route::middleware(['admin'])->group(function(){
+    Route::get('/admin', [AdminController::class, 'index']);
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
