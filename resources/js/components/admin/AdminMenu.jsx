@@ -6,60 +6,41 @@ import Routes from './Routes';
 import Settings from './Settings';
 import Users from './Users';
 
-export default function Menu() {
-    const home = () => {
-        if (document.getElementById('admin-wrapper')) {
-            ReactDOM.render(<Home />, document.getElementById('admin-wrapper'));
-        }
+
+class AdminMenu extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.handleClick.bind(this);
     }
 
-    const users = () => {
-        if (document.getElementById('admin-wrapper')) {
-            ReactDOM.render(<Users />, document.getElementById('admin-wrapper'));
-        }
+    handleClick(comp){
+        alert(comp);
     }
-
-    const buses = () => {
-        if (document.getElementById('admin-wrapper')) {
-            ReactDOM.render(<Buses />, document.getElementById('admin-wrapper'));
-        }
-    }
-
-    const routes = () => {
-        if (document.getElementById('admin-wrapper')) {
-            ReactDOM.render(<Routes />, document.getElementById('admin-wrapper'));
-        }
-    }
-
-    const settings = () => {
-        if (document.getElementById('admin-wrapper')) {
-            ReactDOM.render(<Settings />, document.getElementById('admin-wrapper'));
-        }
-    }
-    return (
-        <div>
-            <div className="menu-wrapper" onClick={home}>
+    render(){
+        return <div>
+            <div className="menu-wrapper" onClick={() => ReactDOM.render(<Home />, document.getElementById("admin-wrapper"))}>
                 <div>
                     <i className="fa fa-home" aria-hidden="true"></i>
                     <span>Home</span>
                 </div>
                 <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </div>
-            <div className="menu-wrapper" onClick={users}>
+            <div className="menu-wrapper" onClick={() => ReactDOM.render(<Users />, document.getElementById("admin-wrapper"))}>
                 <div>
                     <i className="fa fa-users" aria-hidden="true"></i>
                     <span>Users</span>
                 </div>
                 <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </div>
-            <div className="menu-wrapper" onClick={buses}>
+            <div className="menu-wrapper" onClick={() => ReactDOM.render(<Buses />, document.getElementById("admin-wrapper"))}>
                 <div>
                     <i className="fa fa-bus" aria-hidden="true"></i>
                     <span>Buses</span>
                 </div>
                 <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </div>
-            <div className="menu-wrapper" onClick={routes}>
+            <div className="menu-wrapper" onClick={() => ReactDOM.render(<Routes />, document.getElementById("admin-wrapper"))}>
                 <div>
                     <i className="fa fa-location-arrow" aria-hidden="true"></i>
                     <div>
@@ -68,7 +49,7 @@ export default function Menu() {
                 </div>
                 <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </div>
-            <div className="menu-wrapper" onClick={settings}> 
+            <div className="menu-wrapper" onClick={() => ReactDOM.render(<Settings />, document.getElementById("admin-wrapper"))}> 
                 <div>
                     <i className="fa fa-cogs" aria-hidden="true"></i>
                     <div>
@@ -79,9 +60,7 @@ export default function Menu() {
             </div>
 
         </div>
-    );
+    }
 }
 
-if (document.getElementById('menu')) {
-    ReactDOM.render(<Menu />, document.getElementById('menu'));
-}
+ReactDOM.render(<AdminMenu />, document.getElementById('menu'));

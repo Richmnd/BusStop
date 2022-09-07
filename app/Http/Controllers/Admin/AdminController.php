@@ -3,27 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin.dashboard');
+        return view('admin.layouts.admin');
     }
 
     public function users(){
-        return view('admin.users');
-    }
-
-    public function buses(){
-        return view('admin.buses');
-    }
-
-    public function routes(){
-        return view('admin.routes');
-    }
-
-    public function settings(){
-        return view('admin.settings');
+        $users = User::all();
+        return json_decode($users);
     }
 }
