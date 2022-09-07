@@ -1,25 +1,45 @@
+import { result } from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import User from './User';
 
-export default class Users extends React.Component {
+export default class Users extends React.Component 
+{
     constructor(props) {
         super(props);
         this.state = {
           error: null,
           isLoaded: false,
           items: [],
-          url: location.protocol + "//" + location.host + "/admin/users"
+          url: location.protocol + "//" + location.host + "/admin/users",
+          delete_url: location.protocol + "//" + location.host + "/admin/users/delete/"
         };
+
+        this.handleEdit.bind(this);
+    }
+
+    handleEdit(_id, action, name, email){
+        ReactDOM.render(<User id={_id} action={action} name={name} email={email}/>, document.getElementById('admin-wrapper'))
+    }
+
+    handleRemove(event, _id){
+        event.target.parentNode.remove()
+        let temp_link = this.state.delete_url + _id;
+        fetch(temp_link)
+        // .then()
+
+        // ReactDOM.unmountComponentAtNode(document.getElementById('admin-wrapper'))
+        // ReactDOM.render(<Users />, document.getElementById('admin-wrapper'))
     }
 
     componentDidMount(){
         fetch(this.state.url)
         .then(res => res.json())
-        .then(  
+        .then(
             (result) => {
             this.setState({
                 isLoaded: true,
-                items: result.items
+                items: result
             });
             },
             // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
@@ -32,14 +52,20 @@ export default class Users extends React.Component {
             }
         )
 
-        console.log(this.state.items);
+        
     }
 
     render(){
-        
         return (
-            <div>
-                Users
+            <div className='user-card'>
+                {this.state.items.map(user => (
+                    <div key={user.id} className='inner-card'>
+                        <span className='user-data'>{user.name}</span>
+                        <span className='user-data'>{user.email}</span>
+                        <button value={user.id} onClick={() => this.handleEdit(user.id, "edit", user.name, user.email)}>Edit</button>
+                        <button value={user.id} onClick={() => this.handleRemove(event, user.id)}>Remove</button>
+                    </div>
+                ))}
             </div>
         );
     }

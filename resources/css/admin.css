@@ -1,6 +1,8 @@
 body, html, .wrapper{
     margin: 0;
     height: 100%;
+    background-color: black;
+    color: white;
 }
 
 .wrapper{
@@ -21,6 +23,10 @@ body, html, .wrapper{
     padding: 20px;
 }
 
+#admin-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 .inner-wrapper:first(){
     border-bottom: 0.5px solid;
 }
@@ -51,6 +57,9 @@ body, html, .wrapper{
 .menu-wrapper > div > i{
     width: 25px;
     height: 25px;
+}
+.user-data{
+    display: block;
 }
 /* .menu > a > div > i{
     margin-right: 20px;
