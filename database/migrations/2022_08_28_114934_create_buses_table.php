@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('plate');
             $table->string('model');
             $table->string('type');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

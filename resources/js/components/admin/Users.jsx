@@ -8,14 +8,26 @@ export default class Users extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          items: [],
-          url: location.protocol + "//" + location.host + "/admin/users",
-          delete_url: location.protocol + "//" + location.host + "/admin/users/delete/"
+            loading:false,
+            error: null,
+            isLoaded: false,
+            items: [],
+            url: location.protocol + "//" + location.host + "/admin/users",
+            delete_url: location.protocol + "//" + location.host + "/admin/users/delete/"
         };
 
         this.handleEdit.bind(this);
+    }
+
+    useEffect(){
+        this.setState({
+            loading: true
+        });
+        setTimeout(() => {
+        this.setState({
+            loading:false
+        });
+        }, 500);
     }
 
     handleEdit(_id, action, name, email){
@@ -23,16 +35,16 @@ export default class Users extends React.Component
     }
 
     handleRemove(event, _id){
-        event.target.parentNode.remove()
         let temp_link = this.state.delete_url + _id;
         fetch(temp_link)
         // .then()
 
-        // ReactDOM.unmountComponentAtNode(document.getElementById('admin-wrapper'))
-        // ReactDOM.render(<Users />, document.getElementById('admin-wrapper'))
+        ReactDOM.unmountComponentAtNode(document.getElementById('admin-wrapper'))
+        ReactDOM.render(<Users />, document.getElementById('admin-wrapper'))
     }
 
     componentDidMount(){
+        this.useEffect();
         fetch(this.state.url)
         .then(res => res.json())
         .then(
@@ -58,7 +70,13 @@ export default class Users extends React.Component
     render(){
         return (
             <div className='user-card'>
-                {this.state.items.map(user => (
+                {this.state.loading ? (
+                <div className="loader-container">
+                    <div className="spinner"></div>
+                </div>
+            ) : (
+                <div>
+                    {this.state.items.map(user => (
                     <div key={user.id} className='inner-card'>
                         <span className='user-data'>{user.name}</span>
                         <span className='user-data'>{user.email}</span>
@@ -66,6 +84,9 @@ export default class Users extends React.Component
                         <button value={user.id} onClick={() => this.handleRemove(event, user.id)}>Remove</button>
                     </div>
                 ))}
+                </div>
+                
+        )}
             </div>
         );
     }

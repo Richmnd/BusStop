@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,5 +28,16 @@ class AdminController extends Controller
         }else{
             return json_decode('Fail');
         }
+    }
+
+    public function edit_user($id){
+
+        //TODO user update
+        // User::where('id', $id)->update([])
+    }
+
+    public function buses(){
+        $buses = Bus::all();
+        return json_decode($buses);
     }
 }

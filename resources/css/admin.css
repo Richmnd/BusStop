@@ -1,8 +1,8 @@
 body, html, .wrapper{
     margin: 0;
     height: 100%;
-    background-color: black;
-    color: white;
+    /* background-color: black;
+    color: white; */
 }
 
 .wrapper{
@@ -64,3 +64,37 @@ body, html, .wrapper{
 /* .menu > a > div > i{
     margin-right: 20px;
 } */
+
+.bus-image{
+    width: 150px; height: 150px
+}
+
+.loader-container {
+    width: calc(100% - 350px);
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background: white;
+    z-index: 1;
+}
+
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: 8px solid;
+    border-color: #3d5af1 transparent #3d5af1 transparent;
+    border-radius: 50%;
+    animation: spin-anim 1.2s linear infinite;
+}
+
+@keyframes spin-anim {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
